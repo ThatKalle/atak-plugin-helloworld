@@ -1,0 +1,30 @@
+{
+	"name": "ATAK Plugin - Hello World",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"ANDROID_STUDIO_VERSION": "2024.3.2.14",
+			"ATAK_VERSION": "5.4.0.11"
+		}
+	},
+	"features": {
+		// https://containers.dev/features
+		"ghcr.io/devcontainers/features/git:1": {},
+		"ghcr.io/devcontainers/features/git-lfs:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-azuretools.vscode-containers",
+				"GitHub.vscode-github-actions",
+				"mathiasfrohlich.kotlin"
+			],
+			"settings": {
+				"extensions.ignoreRecommendations": true
+			}
+		}
+	},
+	"postCreateCommand": "bash .devcontainer/postCreateCommand.sh --android-studio-version 2024.3.2",
+	"postStartCommand": "bash .devcontainer/postStartCommand.sh",
+	"remoteUser": "vscode"
+}

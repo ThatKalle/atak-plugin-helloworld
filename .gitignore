@@ -1,0 +1,20 @@
+
+#built application files
+*.apk
+*.ap_
+
+# generated files
+bin/
+gen/
+build/
+
+# Windows thumbnail db
+Thumbs.db
+
+# Android Studio
+.gradle/
+.idea/
+app/build/
+*.iml
+.takdev/
+*.keystore
