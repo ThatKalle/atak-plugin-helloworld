@@ -41,7 +41,7 @@ buildscript {
     ext.takrepoUrl = getProperty(urlKey, 'https://localhost/')
     ext.takrepoUser = getProperty('takrepo.user', 'invalid')
     ext.takrepoPassword = getProperty('takrepo.password', 'invalid')
-    ext.takdevPlugin = getProperty('takdev.plugin', "${rootDir}/../../atak-gradle-takdev.jar")
+    ext.takdevPlugin = getProperty('takdev.plugin', "${rootDir}/../atak-gradle-takdev.jar")
 
     repositories {
         google()
@@ -87,7 +87,7 @@ apply plugin: 'atak-takdev-plugin'
 def supportedFlavors = 
 [
     [ name : 'civ', default: true ],
-    [ name : 'mil' /** example: true **/],
+    /** [ name : 'mil'],
     [ name : 'aus' ],
     [ name : 'nzl' ],
     [ name : 'prt' ],
@@ -105,7 +105,7 @@ def supportedFlavors =
     [ name : 'esp' ],
     [ name : 'aeronet' ],
     [ name : 'gov' ],
-    [ name : 'natosof' ],
+    [ name : 'natosof' ],**/
 ]
 
 android {
