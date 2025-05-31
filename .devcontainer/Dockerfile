@@ -1,5 +1,5 @@
 # https://mcr.microsoft.com/en-us/artifact/mar/devcontainers/base/tags
-FROM mcr.microsoft.com/devcontainers/base:1.0.22-bookworm@sha256:a04e0d63bb8087c8931947bed44364b3addeb40591949bbec9b18eafe80fc220
+FROM mcr.microsoft.com/devcontainers/base:1.0.23-bookworm@sha256:da67c59f82e057e0ccb81ec7d13fb50464c26f477638018e6de1b2623a008a3a
 
 USER root
 
