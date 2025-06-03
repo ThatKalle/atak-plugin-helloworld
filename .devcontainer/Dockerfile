@@ -23,13 +23,9 @@ FROM mcr.microsoft.com/devcontainers/base:1.0.23-bookworm@sha256:da67c59f82e057e
 
 USER root
 
-ARG ATAK_SDK_VERSION
-
 ENV PATH="/opt/android-studio/bin:$PATH"
 
 COPY --from=android-setup /opt/android-studio /opt/android-studio
-
-COPY "files/ATAK-CIV-${ATAK_SDK_VERSION}-SDK.zip" "/tmp/ATAK-CIV-SDK.zip"
 
 RUN <<EOF
 export DEBIAN_FRONTEND=noninteractive && apt-get update 

@@ -3,8 +3,8 @@
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
-			"ANDROID_STUDIO_VERSION": "2024.3.2.15",
-			"ATAK_SDK_VERSION": "5.4.0.11"
+			// https://developer.android.com/studio#android-studio-downloads
+			"ANDROID_STUDIO_VERSION": "2024.3.2.15"
 		}
 	},
 	"features": {
@@ -19,12 +19,11 @@
 				"GitHub.vscode-github-actions"
 			],
 			"settings": {
-				"extensions.ignoreRecommendations": true,
-				"terminal.integrated.cwd": "/workspaces/plugins/${localWorkspaceFolderBasename}"
+				"extensions.ignoreRecommendations": true
 			}
 		}
 	},
-	"postCreateCommand": "bash .devcontainer/postCreateCommand.sh --basename ${localWorkspaceFolderBasename} --android-studio-version 2024.3.2",
+	"postCreateCommand": "bash .devcontainer/postCreateCommand.sh --atak-sdk ATAK-CIV-5.4.0.11-SDK.zip --basename ${localWorkspaceFolderBasename}",
 	"postStartCommand": "bash .devcontainer/postStartCommand.sh",
 	"remoteUser": "vscode"
 }

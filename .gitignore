@@ -1,4 +1,5 @@
-atak-javadoc.jar
+# ATAK SDK
+.sdk/
 
 # built application files
 *.apk
