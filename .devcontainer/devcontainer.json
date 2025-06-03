@@ -3,8 +3,8 @@
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
-			"ANDROID_STUDIO_VERSION": "2024.3.2.14",
-			"ATAK_VERSION": "5.4.0.11"
+			"ANDROID_STUDIO_VERSION": "2024.3.2.15",
+			"ATAK_SDK_VERSION": "5.4.0.11"
 		}
 	},
 	"features": {
@@ -16,15 +16,15 @@
 		"vscode": {
 			"extensions": [
 				"ms-azuretools.vscode-containers",
-				"GitHub.vscode-github-actions",
-				"mathiasfrohlich.kotlin"
+				"GitHub.vscode-github-actions"
 			],
 			"settings": {
-				"extensions.ignoreRecommendations": true
+				"extensions.ignoreRecommendations": true,
+				"terminal.integrated.cwd": "/workspaces/plugins/${localWorkspaceFolderBasename}"
 			}
 		}
 	},
-	"postCreateCommand": "bash .devcontainer/postCreateCommand.sh --android-studio-version 2024.3.2",
+	"postCreateCommand": "bash .devcontainer/postCreateCommand.sh --basename ${localWorkspaceFolderBasename} --android-studio-version 2024.3.2",
 	"postStartCommand": "bash .devcontainer/postStartCommand.sh",
 	"remoteUser": "vscode"
 }

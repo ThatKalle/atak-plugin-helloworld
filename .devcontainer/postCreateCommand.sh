@@ -1,9 +1,14 @@
 #!/bin/bash
+set -e
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         --android-studio-version) 
             ANDROID_STUDIO_VERSION="$2"
+            shift
+            ;;
+        --basename) 
+            BASENAME="$2"
             shift
             ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
@@ -14,6 +19,9 @@ done
 unzip -q /tmp/ATAK-CIV-SDK.zip -d /tmp
 sudo cp -r /tmp/ATAK-CIV*-SDK/* /workspaces
 sudo rm -rf /tmp/ATAK-CIV-SDK.zip /tmp/ATAK-CIV*-SDK
+
+mkdir -p /workspaces/plugins
+ln -s "/workspaces/${BASENAME}" "/workspaces/plugins/${BASENAME}"
 
 for w in debug release
 do
