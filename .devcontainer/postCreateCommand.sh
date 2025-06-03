@@ -42,10 +42,11 @@ fi
 
 if [ ! -f "$SDK_PATH/atak-gradle-takdev.jar" ]; then
   echo "Extracting SDK..."
-  unzip -q $SDK_ZIP -d /tmp
+  mkdir -p /tmp/sdk
+  unzip -q $SDK_ZIP -d /tmp/sdk
   mkdir -p $SDK_PATH
-  sudo cp -r /tmp/ATAK-CIV*-SDK/* $SDK_PATH
-  sudo rm -rf /tmp/ATAK-CIV-SDK.zip /tmp/ATAK-CIV*-SDK
+  sudo mv /tmp/sdk/*/* $SDK_PATH
+  sudo rm -rf /tmp/ATAK-CIV-SDK.zip /tmp/sdk
 fi
 
 # Configure Android Studio application

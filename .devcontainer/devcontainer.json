@@ -7,6 +7,9 @@
 			"ANDROID_STUDIO_VERSION": "2024.3.2.15"
 		}
 	},
+	"mounts": [
+		"source=${localWorkspaceFolderBasename}-home,target=/home,type=volume"
+	],
 	"features": {
 		// https://containers.dev/features
 		"ghcr.io/devcontainers/features/git:1": {},
