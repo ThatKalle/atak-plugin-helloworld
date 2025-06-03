@@ -15,8 +15,5 @@
 
     <!-- Putting res values in MapLibrary since most project libraries reference it -->
 
-    <dimen name="auto_margin">6dp</dimen>
-
-
 </resources>
 

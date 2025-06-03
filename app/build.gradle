@@ -8,12 +8,12 @@
 
 buildscript {
 
-    ext.PLUGIN_VERSION = "0.1"
+    ext.PLUGIN_VERSION = "1.0"
     ext.ATAK_VERSION = "5.4.0"
 
     def takdevVersion = '3.+'
 
-    ext.getValueFromPropertiesFile = { propFile, key ->
+    def getValueFromPropertiesFile = { propFile, key ->
         if(!propFile.isFile() || !propFile.canRead())
             return null
         def prop = new Properties()
@@ -87,7 +87,7 @@ apply plugin: 'atak-takdev-plugin'
 def supportedFlavors = 
 [
     [ name : 'civ', default: true ],
-    /** [ name : 'mil'],
+    [ name : 'mil' /** example: true **/],
     [ name : 'aus' ],
     [ name : 'nzl' ],
     [ name : 'prt' ],
@@ -105,12 +105,12 @@ def supportedFlavors =
     [ name : 'esp' ],
     [ name : 'aeronet' ],
     [ name : 'gov' ],
-    [ name : 'natosof' ],**/
+    [ name : 'natosof' ],
 ]
 
 android {
     compileSdk 35
-    namespace 'com.atakmap.android.plugintemplate.plugin'
+    namespace 'com.atakmap.android.helloworld.plugin'
 
     buildFeatures {
         buildConfig = true
@@ -125,16 +125,12 @@ android {
     //    jvmTarget = JavaVersion.VERSION_17
     //}
 
-    // this is required and should not be removed otherwise the TAK 
-    // inner signing check will fail and the plugin will not load
     bundle {
         storeArchive {
             enable = false
         }
     }
 
-    // this is required and should not be removed otherwise the 
-    // plugin will not be able to use native libraries
     packagingOptions {
         jniLibs {
             useLegacyPackaging = true
@@ -164,7 +160,7 @@ android {
         }
         release {
             minifyEnabled true
-            proguardFiles 'proguard-gradle.txt', 'proguard-gradle-repackage.txt'
+            proguardFile 'proguard-gradle.txt'
             signingConfig signingConfigs.release
             matchingFallbacks = ['odk']
         }
@@ -175,7 +171,7 @@ android {
     productFlavors {
         supportedFlavors.each { flav ->
             "${flav.name}" {
-                getIsDefault().set(flav.default)
+                getIsDefault().set(flav.name.equals("${flav.default}"))
                 dimension "application"
 
                 // retain existing application identifiers for civ and mil
@@ -256,43 +252,25 @@ android {
     }
 }
 
-afterEvaluate {
-    project.file('proguard-gradle-repackage.txt').text = "-repackageclasses atakplugin.${rootProject.getName()}"
-
-    try { 
-        tasks.named("compile" + getCommandFlavor() + "ReleaseKotlin") {
-            println "modifying " + getCommandFlavor().toLowerCase() + " kotlin compile options to include: -Xsam-conversions=class"
-            kotlinOptions {
-                freeCompilerArgs += "-Xsam-conversions=class"
-            }
-        }
-    } catch (Exception ignored) { }
-}
-
-// modified code to find the current flavor in progress
-def getCommandFlavor() {
-    String  tskReqStr = getGradle().getStartParameter().getTaskRequests().toString()
-
-    java.util.regex.Pattern pattern
-    if( tskReqStr.contains( "assemble" ) )
-        pattern = java.util.regex.Pattern.compile("assemble(\\w+)(Release|Debug)")
-    else if( tskReqStr.contains( "install" ) )
-        pattern = java.util.regex.Pattern.compile("install(\\w+)(Release|Debug)")
-    else
-        pattern = java.util.regex.Pattern.compile("generate(\\w+)(Release|Debug)")
-
-    java.util.regex.Matcher matcher = pattern.matcher(tskReqStr)
-
-    if( matcher.find() ) {
-        return matcher.group(1)
-    } else {
-        return "Civ"
-    }
-}
-
 
 dependencies {
     implementation fileTree(dir: 'libs', include: '*.jar')
+
+    // Recyclerview version depends on some androidx libraries which
+    // are supplied by core, so they should be excluded.  Otherwise
+    // bad things happen in the release builds after proguarding
+    implementation ('androidx.recyclerview:recyclerview:1.1.0') {
+        exclude module: 'collection'
+        // this is an example of a local exclude since androidx.core is supplied by core atak
+        exclude module: 'core'
+        exclude module: 'lifecycle'
+        exclude module: 'core-common'
+        exclude module: 'collection'
+        exclude module: 'customview'
+    }
+
+    androidTestImplementation 'androidx.lifecycle:lifecycle-runtime:2.2.0'
+
 }
 
 configurations.all {
@@ -301,19 +279,20 @@ configurations.all {
             details.useVersion "1.15.0"
         }
         if (details.requested.group == 'androidx.lifecycle') {
-            details.useVersion "2.8.7" 
+            details.useVersion "2.8.7"
         }
         if (details.requested.group == 'androidx.fragment') {
             details.useVersion "1.8.5"
         }
-    }   
-}           
-        
+    }
+}
+
 configurations.implementation {
        exclude group: 'androidx.core', module: 'core-ktx'
        exclude group: 'androidx.core', module: 'core'
        exclude group: 'androidx.fragment', module: 'fragment'
        exclude group: 'androidx.lifecycle', module: 'lifecycle'
        exclude group: 'androidx.lifecycle', module: 'lifecycle-process'
-}       
+}
+
 
