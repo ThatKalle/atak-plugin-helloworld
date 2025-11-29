@@ -1,5 +1,5 @@
 # https://mcr.microsoft.com/en-us/artifact/mar/devcontainers/base/tags
-FROM mcr.microsoft.com/devcontainers/base:1.0.23-bookworm@sha256:da67c59f82e057e0ccb81ec7d13fb50464c26f477638018e6de1b2623a008a3a AS android-setup
+FROM mcr.microsoft.com/devcontainers/base:2.1.2-bookworm@sha256:92f4097c63929f7d899fed8244a6d99ece584fff621fa6be83b32cbe53264a65 AS android-setup
 
 ARG ANDROID_STUDIO_VERSION
 
@@ -19,7 +19,7 @@ rm android-studio.tar.gz
 EOF
 
 # https://mcr.microsoft.com/en-us/artifact/mar/devcontainers/base/tags
-FROM mcr.microsoft.com/devcontainers/base:1.0.23-bookworm@sha256:da67c59f82e057e0ccb81ec7d13fb50464c26f477638018e6de1b2623a008a3a
+FROM mcr.microsoft.com/devcontainers/base:2.1.2-bookworm@sha256:92f4097c63929f7d899fed8244a6d99ece584fff621fa6be83b32cbe53264a65
 
 USER root
 
